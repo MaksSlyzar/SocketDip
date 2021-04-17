@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Docs</title>
+    </head>
+    
+    <body>
+        <script src="EventEmmiter.js"></script>
+        <script src="socketPlusClient.js"></script>
+
+        <script>
+            const socketPlus = new SocketPlus("ws://localhost:3000");
+
+            socketPlus.on('connection', (data) => {
+                console.log('Connected! Data: ', data);
+            });
+
+            socketPlus.on('login', (data) => {
+                console.log('My id', data)
+
+                socketPlus.sendEmit('loginSuccessfully', 'Yeah!');
+            })
+
+
+        </script>
+    </body>
+</html>
