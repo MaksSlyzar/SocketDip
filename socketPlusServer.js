@@ -23,17 +23,26 @@ class SocketPlus extends EventEmitter {
                 const messageData = JSON.parse(message);
                 socket.emit(messageData.event, messageData.data);
             });
+
+            ws.on('close', () => {
+                console.log('dis')
+                delete this.sockets[socket.id];
+                socket.emit('disconnect', null);
+            });
          
             ws.on("error", e => ws.send(e));
          });
     }
 
-    send () {
+    sendEmit (event, data) {
         //Send all sockets
+        for (socket_id in this.sockets) {
+            this.sockets[socket_id].sendEmit(event, data);
+        }
     }
 
     getAllSockets () {
-
+        return this.sockets;
     }
 }
 

@@ -15,4 +15,8 @@ SocketPlus.on('connection', function (socket) {
     socket.on('loginSuccessfully', function (s) {
         console.log(s)
     });
+
+    socket.on('disconnect', () => {
+        console.log(SocketPlus.sockets);
+    });
 });
